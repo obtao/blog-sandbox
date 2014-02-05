@@ -1,0 +1,2 @@
+_obtao_blog:
+    resource: "@ObtaoBlogBundle/Resources/config/routing.yml"
