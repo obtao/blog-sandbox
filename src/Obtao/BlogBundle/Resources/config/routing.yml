@@ -1,3 +1,7 @@
 home:
     pattern:  /
-    defaults: { _controller: ObtaoBlogBundle:Blog:index }
+    defaults: { _controller: ObtaoBlogBundle:Common:index }
+
+obtao-article-search:
+    pattern:  /article/list
+    defaults: { _controller: ObtaoBlogBundle:Article:list }

@@ -3,11 +3,13 @@
 namespace Obtao\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\ElasticaBundle\Configuration\Search;
 
 /**
  * Article
  *
  * @ORM\Table(name="article")
+ * @Search(repositoryClass="Obtao\BlogBundle\Entity\SearchRepository\ArticleRepository")
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Obtao\BlogBundle\Entity\Repository\ArticleRepository")
  */
@@ -42,7 +44,7 @@ class Article
     protected $createdAt;
 
     /**
-     * @ORM\Column(name="published_at", type="datetime")
+     * @ORM\Column(name="published_at", type="datetime", nullable=true)
      */
     protected $publishedAt;
 
@@ -56,7 +58,7 @@ class Article
 
     public function isPublished()
     {
-        return (null === $this->publishedAt());
+        return (null !== $this->getPublishedAt());
     }
 
 

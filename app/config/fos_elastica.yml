@@ -1,0 +1,25 @@
+fos_elastica:
+    clients:
+        default: { host: %elastic_host%, port: %elastic_port% }
+    indexes:
+        obtao_blog:
+            client: default
+            types:
+                article:
+                    mappings:
+                        id:
+                            type: integer
+                        createdAt :
+                            type : date
+                        publishedAt :
+                            type : date
+                        published : 
+                            type : boolean
+                        title : ~
+                        content : ~
+                    persistence:
+                        driver: orm
+                        model: Obtao\BlogBundle\Entity\Article
+                        finder: ~
+                        provider: ~
+                        listener: ~

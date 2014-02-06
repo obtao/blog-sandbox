@@ -10,7 +10,6 @@ class LoadArticleData extends AbstractFixture
     public function load(ObjectManager $manager)
     {
         $article1 = new Article();
-        $article1->setPublishedAt(\DateTime::createFromFormat('Y-m-d H:i:s', '2013-12-05 20:24:00'));
         $article1->setTitle('Export datas to a csv file with Symfony2');
         $article1->setContent(
             'I recently had to export a huge set of data to a csv file. This is easy and fast to do if you don’t care about memory and User Experience. I wanted the memory consumption does not increase with the volume of data.
@@ -57,7 +56,6 @@ class LoadArticleData extends AbstractFixture
 
 
         $article5 = new Article();
-        $article5->setPublishedAt(\DateTime::createFromFormat('Y-m-d H:i:s', '2013-06-02 20:24:00'));
         $article5->setTitle('Configure WSSE on Symfony2 with FOSRestBundle');
         $article5->setContent(
             'The client–server communication is further constrained by no client context being stored on the server between requests. Each request from any client contains all of the information necessary to service the request, and any session state is held in the client.
@@ -101,7 +99,6 @@ class LoadArticleData extends AbstractFixture
 
 
         $article9 = new Article();
-        $article9->setPublishedAt(\DateTime::createFromFormat('Y-m-d H:i:s', '2013-05-14 17:02:00'));
         $article9->setTitle('Currency Change rates update on Symfony2 using openexchangerates.org API');
         $article9->setContent(
             'In this post, we’ll explain how to create and maintain a database with currencies and change rates.
