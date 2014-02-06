@@ -5,7 +5,7 @@ Hi!
 
 Welcome to our Sandbox. To not make you waste your time, you must
 know this project is totally useless.
-His goal is to be used as an example for [our blog][1] posts about
+Its goal is to be used as an example for [our blog][1] posts about
 Elasticsearch.
 
 If you want to know eveything about Elasticsearch, read our posts
