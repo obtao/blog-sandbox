@@ -2,13 +2,13 @@
 
 namespace Obtao\BlogBundle\Entity\SearchRepository;
 
+use FOS\ElasticaBundle\Repository;
 use Obtao\BlogBundle\Model\ArticleSearch;
 
-class ArticleRepository
+class ArticleRepository extends Repository
 {
     public function search(ArticleSearch $articleSearch)
     {
-        $baseQuery = new \Elastica\Query\Bool();
         // we create a query to return all the articles
         // but if the criteria title is specified, we use it
         if ($articleSearch->getTitle() != null && $articleSearch != '') {
@@ -16,17 +16,23 @@ class ArticleRepository
             $query->setFieldQuery('article.title', $articleSearch->getTitle());
             $query->setFieldFuzziness('article.title', 0.7);
             $query->setFieldMinimumShouldMatch('article.title', '80%');
-            $baseQuery->addMust($query);
             //
         } else {
-            $baseQuery->addMust(new \Elastica\Query\QueryString("article.id:*"));
+            $query = new \Elastica\Query\MatchAll();
         }
+         $baseQuery = $query;
 
         // then we create filters depending on the chosen criterias
         $boolFilter = new \Elastica\Filter\Bool();
 
-        // Dates filter
-        if(null !== $articleSearch->getDateFrom() && null !== $articleSearch->getDateTo()){
+        /*
+            Dates filter
+            We add this filter only the getIspublished filter is not at "false"
+        */
+        if("false" != $articleSearch->getIsPublished()
+           && null !== $articleSearch->getDateFrom()
+           && null !== $articleSearch->getDateTo())
+        {
             $boolFilter->addMust(new \Elastica\Filter\Range('publishedAt',
                 array(
                     'gte' => \Elastica\Util::convertDate($articleSearch->getDateFrom()->getTimestamp()),
@@ -38,7 +44,7 @@ class ArticleRepository
         // Published or not filter
         if($articleSearch->getIsPublished() !== null){
             $boolFilter->addMust(
-                new \Elastica\Filter\Terms('isPublished', $articleSearch->getIsPublished())
+                new \Elastica\Filter\Terms('published', array($articleSearch->getIsPublished()))
             );
         }
 
@@ -46,7 +52,7 @@ class ArticleRepository
 
         $query = \Elastica\Query::create($filtered);
 
-        return $query;
+        return $this->find($query);
     }
 
 }

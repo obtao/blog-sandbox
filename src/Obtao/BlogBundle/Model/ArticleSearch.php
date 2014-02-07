@@ -21,7 +21,7 @@ class ArticleSearch
     {
         // initialise the dateFrom to "one month ago", and the dateTo to "today"
         $date = new \DateTime();
-        $month = new \DateInterval('P1M');
+        $month = new \DateInterval('P1Y');
         $date->sub($month);
         $date->setTime('00','00','00');
 

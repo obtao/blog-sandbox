@@ -12,17 +12,19 @@ class ArticleSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('title',null,array(
+                'required' => false,
+            ))
             ->add('dateFrom', 'date', array(
                 'required' => false,
-                'widget' => 'single_text'
+                'widget' => 'single_text',
             ))
             ->add('dateTo', 'date', array(
                 'required' => false,
-                'widget' => 'single_text'
+                'widget' => 'single_text',
             ))
             ->add('isPublished','choice', array(
-                'choices' => array(0=>'non',1=>'oui'),
+                'choices' => array('false'=>'non','true'=>'oui'),
                 'required' => false,
             ))
             ->add('search','submit')

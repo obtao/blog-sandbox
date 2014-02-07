@@ -1,1 +1,30 @@
-se
+{% extends 'ObtaoBlogBundle::layout.html.twig' %}
+
+{% block body %}
+
+    <h1>List of articles</h1>
+
+    <h2>Filter</h2>
+    {{ form(articleSearchForm) }}
+
+
+    <h2>Results ({{ results|length }})</h2>
+    <ul>
+        {% for article in results %}
+            <li>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.content }}</p>
+                <p>
+                    <strong>Status : </strong>
+                    {% if article.isPublished %}
+                        Published on {{ article.publishedAt|date('m/d/Y') }}
+                    {% else %}
+                        Not published yet
+                    {% endif %}
+                </p>
+            </li>
+        {% else %}
+            <li>No result for this search</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
