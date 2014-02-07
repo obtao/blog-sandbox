@@ -22,6 +22,10 @@ php app/console doctrine:schema:create
 echo "- load fixtures in project"
 php app/console doctrine:fixtures:load --append
 
+echo "- indexing objects"
+php app/console fos:elastica:populate
+
+
 echo "- Install assets"
 php app/console assets:install web --symlink
 

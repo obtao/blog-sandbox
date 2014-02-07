@@ -1,7 +1,14 @@
 {% extends 'ObtaoBlogBundle::layout.html.twig' %}
 
-{% block content %}
+{% block body %}
 
-	Welcome!
+	<h1>Welcome!</h1>
+
+
+	<ul>
+		<li>
+			<a href="{{ path('obtao-article-search') }}">List of article - simple search</a>
+		</li>
+	</ul>
 
 {% endblock %}
