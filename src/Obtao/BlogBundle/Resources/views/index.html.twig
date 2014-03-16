@@ -2,13 +2,16 @@
 
 {% block body %}
 
-	<h1>Welcome!</h1>
+    <h1>Welcome!</h1>
 
 
-	<ul>
-		<li>
-			<a href="{{ path('obtao-article-search') }}">List of article - simple search</a>
-		</li>
-	</ul>
+    <ul>
+        <li>
+            <a href="{{ path('obtao-article-search') }}">List of article - simple search</a>
+        </li>
+        <li>
+            <a href="{{ path('obtao-article-export') }}">Export with scan and scroll functions</a>
+        </li>
+    </ul>
 
 {% endblock %}

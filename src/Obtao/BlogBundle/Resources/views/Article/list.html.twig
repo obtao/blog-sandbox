@@ -5,7 +5,11 @@
     <h1>List of articles</h1>
 
     <h2>Filter</h2>
-    {{ form(articleSearchForm) }}
+    <div class="row">
+        <div class="col-md-5">
+            {{ form(articleSearchForm) }}
+        </div>
+    </div>
 
 
     <h2>Results ({{ results|length }})</h2>

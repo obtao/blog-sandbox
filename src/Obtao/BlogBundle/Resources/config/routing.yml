@@ -5,3 +5,7 @@ home:
 obtao-article-search:
     pattern:  /article/list
     defaults: { _controller: ObtaoBlogBundle:Article:list }
+
+obtao-article-export:
+    pattern:  /article/export
+    defaults: { _controller: ObtaoBlogBundle:Article:export }

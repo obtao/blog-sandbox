@@ -5,9 +5,12 @@ namespace Obtao\BlogBundle\Entity\SearchRepository;
 use FOS\ElasticaBundle\Repository;
 use Obtao\BlogBundle\Model\ArticleSearch;
 
+/**
+ * This class contains all the elastica queries
+ */
 class ArticleRepository extends Repository
 {
-    public function search(ArticleSearch $articleSearch)
+    public function getQueryForSearch(ArticleSearch $articleSearch)
     {
         // we create a query to return all the articles
         // but if the criteria title is specified, we use it
@@ -16,7 +19,6 @@ class ArticleRepository extends Repository
             $query->setFieldQuery('article.title', $articleSearch->getTitle());
             $query->setFieldFuzziness('article.title', 0.7);
             $query->setFieldMinimumShouldMatch('article.title', '80%');
-            //
         } else {
             $query = new \Elastica\Query\MatchAll();
         }
@@ -50,7 +52,12 @@ class ArticleRepository extends Repository
 
         $filtered = new \Elastica\Query\Filtered($baseQuery, $boolFilter);
 
-        $query = \Elastica\Query::create($filtered);
+        return \Elastica\Query::create($filtered);
+    }
+
+    public function search(ArticleSearch $articleSearch)
+    {
+        $query = $this->getQueryForSearch($articleSearch);
 
         return $this->find($query);
     }
