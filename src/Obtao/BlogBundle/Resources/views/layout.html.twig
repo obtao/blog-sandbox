@@ -5,8 +5,12 @@
             <meta name="description" content="The Amazing Blog">
         {% endblock %}
         <title>{% block title %}The Amazing Blog{% endblock %}</title>
+
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>

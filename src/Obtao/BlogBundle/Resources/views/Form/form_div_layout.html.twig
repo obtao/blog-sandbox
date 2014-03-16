@@ -1,0 +1,11 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block form_row %}
+{% spaceless %}
+    <div class="form-group">
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form,{'attr':{'class':'form-control'}}) }}
+    </div>
+{% endspaceless %}
+{% endblock form_row %}
