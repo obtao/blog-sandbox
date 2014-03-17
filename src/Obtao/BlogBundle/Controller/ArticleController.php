@@ -20,7 +20,7 @@ class ArticleController extends Controller
         // since we do not need particular filter
         $articleQuery = $this->getSearchRepository()->getQueryForSearch(new ArticleSearch());
 
-        // the use the scan function to
+        // init and configure the scan function
         $exportScan = $articleIndex->search($articleQuery, array(
             \Elastica\Search::OPTION_SEARCH_TYPE => \Elastica\Search::OPTION_SEARCH_TYPE_SCAN,
             \Elastica\Search::OPTION_SCROLL => '30s',
