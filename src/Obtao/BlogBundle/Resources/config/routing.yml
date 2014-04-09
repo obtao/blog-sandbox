@@ -1,11 +1,17 @@
 home:
     pattern:  /
     defaults: { _controller: ObtaoBlogBundle:Common:index }
+    requirements:
+        _method:  GET
 
 obtao-article-search:
     pattern:  /article/list
     defaults: { _controller: ObtaoBlogBundle:Article:list }
+    requirements:
+        _method:  GET
 
 obtao-article-export:
     pattern:  /article/export
     defaults: { _controller: ObtaoBlogBundle:Article:export }
+    requirements:
+        _method:  GET

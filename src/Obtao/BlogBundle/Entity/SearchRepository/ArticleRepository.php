@@ -29,9 +29,9 @@ class ArticleRepository extends Repository
 
         /*
             Dates filter
-            We add this filter only the getIspublished filter is not at "false"
+            We add this filter only the ispublished filter is not at "false"
         */
-        if("false" != $articleSearch->getIsPublished()
+        if("false" != $articleSearch->isPublished()
            && null !== $articleSearch->getDateFrom()
            && null !== $articleSearch->getDateTo())
         {
@@ -44,9 +44,9 @@ class ArticleRepository extends Repository
         }
 
         // Published or not filter
-        if($articleSearch->getIsPublished() !== null){
+        if($articleSearch->isPublished() !== null){
             $boolFilter->addMust(
-                new \Elastica\Filter\Terms('published', array($articleSearch->getIsPublished()))
+                new \Elastica\Filter\Terms('published', array($articleSearch->isPublished()))
             );
         }
 

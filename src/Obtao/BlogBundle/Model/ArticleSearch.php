@@ -2,8 +2,6 @@
 
 namespace Obtao\BlogBundle\Model;
 
-use Symfony\Component\HttpFoundation\Request;
-
 class ArticleSearch
 {
     // begin of publication range
@@ -65,12 +63,12 @@ class ArticleSearch
         return $this->dateTo;
     }
 
-    public function getIsPublished()
+    public function isPublished()
     {
         return $this->isPublished;
     }
 
-    public function setIsPublished($isPublished)
+    public function setPublished($isPublished)
     {
         $this->isPublished = $isPublished;
 
