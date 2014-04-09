@@ -2,11 +2,9 @@
 
 namespace Obtao\BlogBundle\Controller;
 
-use Obtao\BlogBundle\Form\Type\ArticleSearchType;
 use Obtao\BlogBundle\Model\ArticleSearch;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ArticleController extends Controller

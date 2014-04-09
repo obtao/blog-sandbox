@@ -2,7 +2,6 @@
 
 namespace Obtao\BlogBundle\Form\Type;
 
-use Obtao\BlogBundle\Model\ArticleSearch;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
