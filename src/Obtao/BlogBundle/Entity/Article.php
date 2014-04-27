@@ -2,8 +2,11 @@
 
 namespace Obtao\BlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\ElasticaBundle\Configuration\Search;
+use Obtao\BlogBundle\Entity\Author;
+use Obtao\BlogBundle\Entity\Category;
 
 /**
  * Article
@@ -47,6 +50,33 @@ class Article
      * @ORM\Column(name="published_at", type="datetime", nullable=true)
      */
     protected $publishedAt;
+
+    /**
+     * @var Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Obtao\BlogBundle\Entity\Author")
+     */
+    protected $authors;
+
+    /**
+     * @var \Obtao\BlogBundle\Entity\Category
+     *
+     * @ORM\ManyToOne(targetEntity="\Obtao\BlogBundle\Entity\Category", inversedBy="articles")
+     */
+    protected $category;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="simple_array")
+     */
+    protected $tags;
+
+    public function __construct()
+    {
+        $this->authors = new ArrayCollection();
+        $this->tags = array();
+    }
 
     /**
     * @ORM\PrePersist
@@ -149,5 +179,52 @@ class Article
     public function getPublishedAt()
     {
         return $this->publishedAt;
+    }
+
+
+    public function addAuthor(Author $author)
+    {
+        $this->authors->add($author);
+
+        return $this;
+    }
+
+    public function setAuthors($authors)
+    {
+        $this->authors = $authors;
+
+        return $this;
+    }
+
+    public function getAuthors()
+    {
+        return $this->authors;
+    }
+
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function setTags($tags)
+    {
+        if(is_string($tags))
+            $tags = explode(",",$tags);
+
+        $this->tags = $tags;
+
+        return $this;
     }
 }

@@ -11,7 +11,7 @@ class ArticleSearch
     protected $dateTo;
 
     // published or not
-    protected $isPublished;
+    protected $published;
 
     protected $title;
 
@@ -65,12 +65,12 @@ class ArticleSearch
 
     public function isPublished()
     {
-        return $this->isPublished;
+        return $this->published;
     }
 
-    public function setPublished($isPublished)
+    public function setPublished($published)
     {
-        $this->isPublished = $isPublished;
+        $this->published = $published;
 
         return $this;
     }

@@ -20,7 +20,8 @@
         "sensio/framework-extra-bundle": "~3.0",
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
-        "friendsofsymfony/elastica-bundle": "3.0.*@dev"
+        "friendsofsymfony/elastica-bundle": "3.0.*@dev",
+        "ruflin/elastica" : "1.0.*"
     },
     "scripts": {
         "post-install-cmd": [

@@ -22,7 +22,7 @@ class ArticleSearchType extends AbstractType
                 'required' => false,
                 'widget' => 'single_text',
             ))
-            ->add('isPublished','choice', array(
+            ->add('published','choice', array(
                 'choices' => array('false'=>'non','true'=>'oui'),
                 'required' => false,
             ))

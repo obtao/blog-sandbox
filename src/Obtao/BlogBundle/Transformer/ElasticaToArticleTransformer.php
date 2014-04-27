@@ -26,14 +26,10 @@ class ElasticaToArticleTransformer extends AbstractElasticaToModelTransformer
             ->getRepository('ObtaoBlogBundle:Article')
             ->createQueryBuilder('a');
 
-        /*
-           actually this transformer is useless in this case since
-           Elasticsearch already returns Article objects and that's what we need.
-           If you need more logic, like get Article and its Author objects, or
-           get also the Tags objects, the Transformer is designed for that.
-        */
         $qb
-            ->select('a')
+            ->select('a,aut,c')
+            ->join('a.authors','aut')
+            ->join('a.category','c')
             ->where($qb->expr()->in('a.'.$this->options['identifier'], ':values'))
             ->setParameter('values', $identifierValues)
         ;

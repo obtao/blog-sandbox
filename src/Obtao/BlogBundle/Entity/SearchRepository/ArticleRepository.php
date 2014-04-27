@@ -2,6 +2,7 @@
 
 namespace Obtao\BlogBundle\Entity\SearchRepository;
 
+use Elastica\Aggregation\Stats;
 use FOS\ElasticaBundle\Repository;
 use Obtao\BlogBundle\Model\ArticleSearch;
 
@@ -55,7 +56,33 @@ class ArticleRepository extends Repository
         return \Elastica\Query::create($filtered);
     }
 
-    public function search(ArticleSearch $articleSearch)
+    public function getStatsQuery(ArticleSearch $articleSearch)
+    {
+        $query = $this->getQueryForSearch($articleSearch);
+
+        //Simple aggregation (based on tags, we will get doc_count for each tag)
+        $tagsAggregation = new \Elastica\Aggregation\Terms('tag');
+        $tagsAggregation->setField('tags');
+
+        //More complex aggregation. We will get categories for each month
+        $dateAggregation = new \Elastica\Aggregation\DateHistogram('dateHistogram','publishedAt','month');
+        $dateAggregation->setFormat("dd-MM-YYYY");
+        $categoryAggregation = new \Elastica\Aggregation\Terms('category');
+        $categoryAggregation->setField("category");
+
+        $dateAggregation->addAggregation($categoryAggregation);
+
+
+        $query->addAggregation($tagsAggregation);
+        $query->addAggregation($dateAggregation);
+
+        //We don't need just stats.
+        $query->setSize(0);
+
+        return $query;
+    }
+
+    public function searchArticles(ArticleSearch $articleSearch)
     {
         $query = $this->getQueryForSearch($articleSearch);
 

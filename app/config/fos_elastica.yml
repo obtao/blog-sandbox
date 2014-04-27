@@ -5,18 +5,38 @@ fos_elastica:
         obtao_blog:
             client: default
             types:
+                category:
+                    mappings:
+                        id:
+                            type: integer
+                        label : ~
+                    persistence:
+                        driver: orm
+                        model: Obtao\BlogBundle\Entity\Category
+                        finder: ~
+                        provider: ~
+                        listener: ~
                 article:
                     mappings:
                         id:
                             type: integer
+                        authors :
+                            type : nested
+                            properties :
+                                firstname : ~
+                                surname : ~
+                                id: ~
+                        category :
+                            index : not_analyzed
                         createdAt :
                             type : date
+                        content : ~
                         publishedAt :
                             type : date
-                        published : 
+                        published :
                             type : boolean
+                        tags : ~
                         title : ~
-                        content : ~
                     persistence:
                         driver: orm
                         model: Obtao\BlogBundle\Entity\Article
@@ -25,3 +45,7 @@ fos_elastica:
                         finder: ~
                         provider: ~
                         listener: ~
+                    _parent:
+                        type : "category"
+                        identifier: "id"
+                        property : "category"

@@ -99,11 +99,38 @@ class ArticleController extends Controller
         $articleSearch = $articleSearchForm->getData();
 
         // we pass our search object to the search repository
-        $results = $this->getSearchRepository()->search($articleSearch);
+        $results = $this->getSearchRepository()->searchArticles($articleSearch);
 
         return $this->render('ObtaoBlogBundle:Article:list.html.twig',array(
             'results' => $results,
             'articleSearchForm' => $articleSearchForm->createView(),
+        ));
+    }
+
+    public function statsAction(Request $request)
+    {
+        $articleSearch = new ArticleSearch();
+
+        // we create an "anonym" form to pass parameters in GET and have a nice url
+        $articleSearchForm = $this->get('form.factory')
+            ->createNamed(
+                '',
+                'article_search_type',
+                $articleSearch,
+                array(
+                    'action' => $this->generateUrl('obtao-article-stats'),
+                    'method' => 'GET'
+                )
+            );
+        $articleSearchForm->handleRequest($request);
+        $articleSearch = $articleSearchForm->getData();
+
+        $query = $this->getSearchRepository()->getStatsQuery($articleSearch);
+        $results = $this->get('fos_elastica.index.obtao_blog.article')->search($query);
+
+        return $this->render('ObtaoBlogBundle:Article:stats.html.twig',array(
+            'aggs' => $results->getAggregations(),
+            'articleSearchForm' => $articleSearchForm->createView()
         ));
     }
 

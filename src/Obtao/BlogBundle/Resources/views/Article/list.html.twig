@@ -16,7 +16,7 @@
     <ul>
         {% for article in results %}
             <li>
-                <h3>{{ article.title }}</h3>
+                <h3>{{ article.title }} ({{ article.category.label }})</h3>
                 <p>{{ article.content }}</p>
                 <p>
                     <strong>Status : </strong>
@@ -26,6 +26,12 @@
                         Not published yet
                     {% endif %}
                 </p>
+                <strong>Written by :</strong>
+                <ul>
+                    {% for author in article.authors %}
+                        <li>{{ author.surname }}</li>
+                    {% endfor %}
+                </ul>
             </li>
         {% else %}
             <li>No result for this search</li>

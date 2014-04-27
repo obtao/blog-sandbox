@@ -15,3 +15,9 @@ obtao-article-export:
     defaults: { _controller: ObtaoBlogBundle:Article:export }
     requirements:
         _method:  GET
+
+obtao-article-stats:
+    pattern:  /article/stats
+    defaults: { _controller: ObtaoBlogBundle:Article:stats }
+    requirements:
+        _method:  GET

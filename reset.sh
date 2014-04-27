@@ -14,6 +14,8 @@ fi
 
 echo "- drop database"
 php app/console doctrine:database:drop --force || true
+php app/console fos:elastica:reset
+
 echo "- create database"
 php app/console doctrine:database:create
 echo "- create SQL schema"
@@ -22,9 +24,8 @@ php app/console doctrine:schema:create
 echo "- load fixtures in project"
 php app/console doctrine:fixtures:load --append
 
-echo "- indexing objects"
-php app/console fos:elastica:populate
-
+#echo "- indexing objects"
+#php app/console fos:elastica:populate
 
 echo "- Install assets"
 php app/console assets:install web --symlink
