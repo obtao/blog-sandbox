@@ -1,0 +1,12 @@
+{% extends 'ObtaoBlogBundle::layout.html.twig' %}
+
+{% block body %}
+
+    <h1>List of active categories</h1>
+
+    <ul>
+        {% for category in categories %}
+            <li>{{ category.label }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

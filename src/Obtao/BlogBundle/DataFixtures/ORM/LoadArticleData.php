@@ -169,6 +169,19 @@ class LoadArticleData extends AbstractFixture
         $this->addReference('article_11', $article11);
         $manager->persist($article11);
 
+
+        $article12 = new Article();
+        $article12->setTitle('Java');
+        $article12->addAuthor($this->getReference('author_3'));
+        $article12->setCategory($this->getReference('category_4'));
+        $article12->setContent(
+            'What is Java ?'
+        );
+        $article12->setTags(array('Java'));
+
+        $this->addReference('article_12', $article12);
+        $manager->persist($article12);
+
         $manager->flush();
 
     }

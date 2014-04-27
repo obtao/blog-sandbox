@@ -1,0 +1,31 @@
+{% extends 'ObtaoBlogBundle::layout.html.twig' %}
+
+{% block body %}
+
+    <h1>List of articles</h1>
+
+    <h2>Filter</h2>
+    <div class="row">
+        <div class="col-md-5">
+            {{ form(articleSearchForm) }}
+        </div>
+    </div>
+
+    <h2>Tags</h2>
+    {% for tagAgg in aggs.tag.buckets %}
+        {{ tagAgg.key }} ({{ tagAgg.doc_count }}){% if not loop.last %}, {% endif %}
+    {% endfor %}
+
+    <h2>Date histogram</h2>
+    {% for dateAgg in aggs.dateHistogram.buckets %}
+        <ul>
+            <li>{{ dateAgg.key_as_string }} ({{ dateAgg.doc_count}})
+                <ul>
+                    {% for category in dateAgg.category.buckets %}
+                        <li> {{ category.key }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    {% endfor %}
+{% endblock %}

@@ -21,3 +21,9 @@ obtao-article-stats:
     defaults: { _controller: ObtaoBlogBundle:Article:stats }
     requirements:
         _method:  GET
+
+obtao-category-active:
+    pattern:  /category/actives
+    defaults: { _controller: ObtaoBlogBundle:Category:listActives }
+    requirements:
+        _method:  GET

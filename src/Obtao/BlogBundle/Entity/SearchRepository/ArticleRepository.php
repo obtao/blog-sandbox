@@ -53,7 +53,11 @@ class ArticleRepository extends Repository
 
         $filtered = new \Elastica\Query\Filtered($baseQuery, $boolFilter);
 
-        return \Elastica\Query::create($filtered);
+        $query = new \Elastica\Query();
+        $query->setQuery($baseQuery);
+        $query->setFilter($boolFilter);
+
+        return $query;
     }
 
     public function getStatsQuery(ArticleSearch $articleSearch)
