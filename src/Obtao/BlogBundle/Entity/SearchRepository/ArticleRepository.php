@@ -23,10 +23,10 @@ class ArticleRepository extends Repository
         } else {
             $query = new \Elastica\Query\MatchAll();
         }
-         $baseQuery = $query;
 
         // then we create filters depending on the chosen criterias
-        $boolFilter = new \Elastica\Filter\Bool();
+        $boolQuery = new \Elastica\Query\Bool();
+        $boolQuery->addMust($query);
 
         /*
             Dates filter
@@ -36,7 +36,7 @@ class ArticleRepository extends Repository
            && null !== $articleSearch->getDateFrom()
            && null !== $articleSearch->getDateTo())
         {
-            $boolFilter->addMust(new \Elastica\Filter\Range('publishedAt',
+            $boolQuery->addMust(new \Elastica\Query\Range('publishedAt',
                 array(
                     'gte' => \Elastica\Util::convertDate($articleSearch->getDateFrom()->getTimestamp()),
                     'lte' => \Elastica\Util::convertDate($articleSearch->getDateTo()->getTimestamp())
@@ -46,16 +46,12 @@ class ArticleRepository extends Repository
 
         // Published or not filter
         if($articleSearch->isPublished() !== null){
-            $boolFilter->addMust(
-                new \Elastica\Filter\Terms('published', array($articleSearch->isPublished()))
+            $boolQuery->addMust(
+                new \Elastica\Query\Terms('published', array($articleSearch->isPublished()))
             );
         }
 
-        $filtered = new \Elastica\Query\Filtered($baseQuery, $boolFilter);
-
-        $query = new \Elastica\Query();
-        $query->setQuery($baseQuery);
-        $query->setFilter($boolFilter);
+        $query = new \Elastica\Query($boolQuery);
 
         return $query;
     }
@@ -80,7 +76,7 @@ class ArticleRepository extends Repository
         $query->addAggregation($tagsAggregation);
         $query->addAggregation($dateAggregation);
 
-        //We don't need just stats.
+        //We don't need results, just stats.
         $query->setSize(0);
 
         return $query;
