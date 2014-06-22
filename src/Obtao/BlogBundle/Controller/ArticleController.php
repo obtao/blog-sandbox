@@ -3,6 +3,8 @@
 namespace Obtao\BlogBundle\Controller;
 
 use Obtao\BlogBundle\Model\ArticleSearch;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -80,9 +82,10 @@ class ArticleController extends Controller
         return $response;
     }
 
-    public function listAction(Request $request)
+    public function listAction(Request $request, $page)
     {
         $articleSearch = new ArticleSearch();
+        $articleSearch->handleRequest($request);
 
         // we create an "anonym" form to pass parameters in GET and have a nice url
         $articleSearchForm = $this->get('form.factory')
@@ -101,8 +104,14 @@ class ArticleController extends Controller
         // we pass our search object to the search repository
         $results = $this->getSearchRepository()->searchArticles($articleSearch);
 
+        $adapter = new ArrayAdapter($results);
+        $pager = new Pagerfanta($adapter);
+        $pager->setMaxPerPage($articleSearch->getPerPage());
+        $pager->setCurrentPage($page);
+
         return $this->render('ObtaoBlogBundle:Article:list.html.twig',array(
-            'results' => $results,
+            'results' => $pager->getCurrentPageResults(),
+            'pager' => $pager,
             'articleSearchForm' => $articleSearchForm->createView(),
         ));
     }

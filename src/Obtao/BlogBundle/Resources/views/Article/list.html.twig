@@ -11,6 +11,17 @@
         </div>
     </div>
 
+    {% if pager is not null and pager.haveToPaginate %}
+        <div class="pager">
+            {{ pagerfanta(pager, 'twitter_bootstrap', {
+                'routeName': 'obtao-article-search-paginated',
+                'routeParams': app.request.query.all,
+                'prev_message': 'Previous',
+                'next_message': 'Next'
+            }) }}
+        </div>
+    {% endif %}
+
 
     <h2>Results ({{ results|length }})</h2>
     <ul>
@@ -37,4 +48,31 @@
             <li>No result for this search</li>
         {% endfor %}
     </ul>
+{% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('body').find('[name="sortSelect"]').on('change',function(){
+                var arr_val = $(this).val().split(' ');
+                // check if keys 0 and 1 exist in array
+                if (!arr_val || (arr_val.constructor !== Array && arr_val.constructor !== Object)) {
+                    return false;
+                } else {
+                    if ((0 in arr_val) && (1 in arr_val)){
+                        $('[name="sort"]').val(arr_val[0]);
+                        $('[name="direction"]').val(arr_val[1]);
+                        $('[name="page"]').val(1);
+                    }else{
+                        $('[name="sort"]').val('');
+                        $('[name="direction"]').val('');
+                    }
+                }
+                // changing the sort order run a new search
+                $('form').submit();
+            });
+        });
+    </script>
+
 {% endblock %}

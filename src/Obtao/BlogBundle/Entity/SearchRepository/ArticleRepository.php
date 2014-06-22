@@ -52,6 +52,11 @@ class ArticleRepository extends Repository
         }
 
         $query = new \Elastica\Query($boolQuery);
+        $query->setSort(array(
+            $articleSearch->getSort() => array(
+                'order' => $articleSearch->getDirection()
+            )
+        ));
 
         return $query;
     }

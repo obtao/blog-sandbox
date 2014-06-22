@@ -6,6 +6,12 @@ home:
 
 obtao-article-search:
     pattern:  /article/list
+    defaults: { _controller: ObtaoBlogBundle:Article:list , page: 1 }
+    requirements:
+        _method:  GET
+
+obtao-article-search-paginated:
+    pattern:  /article/list/{page}
     defaults: { _controller: ObtaoBlogBundle:Article:list }
     requirements:
         _method:  GET
