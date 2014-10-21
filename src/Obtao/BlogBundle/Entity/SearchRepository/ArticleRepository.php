@@ -2,7 +2,6 @@
 
 namespace Obtao\BlogBundle\Entity\SearchRepository;
 
-use Elastica\Aggregation\Stats;
 use FOS\ElasticaBundle\Repository;
 use Obtao\BlogBundle\Model\ArticleSearch;
 
@@ -15,7 +14,7 @@ class ArticleRepository extends Repository
     {
         // we create a query to return all the articles
         // but if the criteria title is specified, we use it
-        if ($articleSearch->getTitle() != null && $articleSearch != '') {
+        if ($articleSearch->getTitle() !== null && $articleSearch != '') {
             $query = new \Elastica\Query\Match();
             $query->setFieldQuery('article.title', $articleSearch->getTitle());
             $query->setFieldFuzziness('article.title', 0.7);

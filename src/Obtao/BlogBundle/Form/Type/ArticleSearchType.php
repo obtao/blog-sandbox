@@ -59,7 +59,6 @@ class ArticleSearchType extends AbstractType
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
                 // emulate sortSelect submission to prefill the field
                 $articleSearch = $event->getData();
-                $articleForm = $event->getForm();
 
                 if(array_key_exists('sort',$articleSearch) && array_key_exists('direction',$articleSearch)){
                     $articleSearch['sortSelect'] = $articleSearch['sort'].' '.$articleSearch['direction'];

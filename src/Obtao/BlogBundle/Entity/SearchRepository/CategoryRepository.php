@@ -2,7 +2,6 @@
 
 namespace Obtao\BlogBundle\Entity\SearchRepository;
 
-use Elastica\Aggregation\Stats;
 use FOS\ElasticaBundle\Repository;
 
 class CategoryRepository extends Repository

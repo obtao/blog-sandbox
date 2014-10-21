@@ -52,7 +52,7 @@ class ArticleSearch
         $this->initSortSelect();
     }
 
-    public function setDateFrom($dateFrom)
+    public function setDateFrom(\DateTime $dateFrom)
     {
         if($dateFrom != ""){
             $dateFrom->setTime('00','00','00');
@@ -67,7 +67,7 @@ class ArticleSearch
         return $this->dateFrom;
     }
 
-    public function setDateTo($dateTo)
+    public function setDateTo(\DateTime $dateTo)
     {
         if($dateTo != ""){
             $dateTo->setTime('23','59','59');
@@ -126,7 +126,7 @@ class ArticleSearch
 
     public function setPage($page)
     {
-        if ($page != null) {
+        if ($page !== null) {
             $this->page = $page;
         }
 
@@ -140,7 +140,7 @@ class ArticleSearch
 
     public function setPerPage($perPage=null)
     {
-        if($perPage != null){
+        if($perPage !== null){
             $this->perPage = $perPage;
         }
 
@@ -149,7 +149,7 @@ class ArticleSearch
 
     public function setSortSelect($sortSelect)
     {
-        if ($sortSelect != null) {
+        if ($sortSelect !== null) {
             $this->sortSelect =  $sortSelect;
         }
     }
@@ -171,7 +171,7 @@ class ArticleSearch
 
     public function setSort($sort)
     {
-        if ($sort != null) {
+        if ($sort !== null) {
             $this->sort = $sort;
             $this->initSortSelect();
         }
@@ -186,7 +186,7 @@ class ArticleSearch
 
     public function setDirection($direction)
     {
-        if ($direction != null) {
+        if ($direction !== null) {
             $this->direction = $direction;
             $this->initSortSelect();
         }
