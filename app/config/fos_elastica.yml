@@ -45,6 +45,9 @@ fos_elastica:
                         finder: ~
                         provider: ~
                         listener: ~
+                    _routing:
+                        required: true
+                        path: category
                     _parent:
                         type : "category"
                         identifier: "id"
