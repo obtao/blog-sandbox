@@ -1,6 +1,7 @@
 The Sandbox Blog project
 ========================
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/87220151-d076-41b6-9b4f-777eefc8c0f0/small.png)](https://insight.sensiolabs.com/projects/87220151-d076-41b6-9b4f-777eefc8c0f0)
 
 What is this project?
 ---------------------
