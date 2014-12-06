@@ -220,8 +220,7 @@ class Article
 
     public function setTags($tags)
     {
-        if(is_string($tags))
-            $tags = explode(",",$tags);
+        (is_string($tags)) $tags = explode(",", $tags);
 
         $this->tags = $tags;
 

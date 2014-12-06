@@ -11,7 +11,7 @@ class CategoryController extends Controller
     {
         $categories = $this->getSearchRepository()->searchActiveCategories();
 
-        return $this->render('ObtaoBlogBundle:Category:list.html.twig',array(
+        return $this->render('ObtaoBlogBundle:Category:list.html.twig', array(
             'categories' => $categories
         ));
     }

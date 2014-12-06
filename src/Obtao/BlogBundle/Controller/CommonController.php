@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CommonController extends Controller
 {
-	public function indexAction(Request $request)
-	{
-		return $this->render('ObtaoBlogBundle::index.html.twig');
-	}
+    public function indexAction(Request $request)
+    {
+        return $this->render('ObtaoBlogBundle::index.html.twig');
+    }
 }
