@@ -31,7 +31,7 @@ class ArticleController extends Controller
         $elasticaIndex = $this->get('fos_elastica.index');
         $articleTransformer = $this->get('obtao.transformers.elastica.article');
 
-        $response = new StreamedResponse(function() use($exportScan,$em,$elasticaIndex, $articleTransformer) {
+        $response = new StreamedResponse(function () use ($exportScan, $em, $elasticaIndex, $articleTransformer) {
             $total = $exportScan->getTotalHits();
             $countArticles = 0;
 
@@ -42,7 +42,7 @@ class ArticleController extends Controller
 
             while ($countArticles <= $total) {
                 // get the set of results for the given scroll id
-                $response = $elasticaIndex->search(null ,array(
+                $response = $elasticaIndex->search(null, array(
                     \Elastica\Search::OPTION_SCROLL_ID => $scrollId,
                     \Elastica\Search::OPTION_SCROLL => '30s'
                 ));
@@ -77,7 +77,7 @@ class ArticleController extends Controller
         });
 
         $response->headers->set('Content-Type', 'application/force-download');
-        $response->headers->set('Content-Disposition','attachment; filename="export.csv"');
+        $response->headers->set('Content-Disposition', 'attachment; filename="export.csv"');
 
         return $response;
     }
@@ -109,7 +109,7 @@ class ArticleController extends Controller
         $pager->setMaxPerPage($articleSearch->getPerPage());
         $pager->setCurrentPage($page);
 
-        return $this->render('ObtaoBlogBundle:Article:list.html.twig',array(
+        return $this->render('ObtaoBlogBundle:Article:list.html.twig', array(
             'results' => $pager->getCurrentPageResults(),
             'pager' => $pager,
             'articleSearchForm' => $articleSearchForm->createView(),
@@ -137,7 +137,7 @@ class ArticleController extends Controller
         $query = $this->getSearchRepository()->getStatsQuery($articleSearch);
         $results = $this->get('fos_elastica.index.obtao_blog.article')->search($query);
 
-        return $this->render('ObtaoBlogBundle:Article:stats.html.twig',array(
+        return $this->render('ObtaoBlogBundle:Article:stats.html.twig', array(
             'aggs' => $results->getAggregations(),
             'articleSearchForm' => $articleSearchForm->createView()
         ));

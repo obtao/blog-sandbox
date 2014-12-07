@@ -43,19 +43,19 @@ class ArticleSearch
         $date = new \DateTime();
         $years = new \DateInterval('P2Y');
         $date->sub($years);
-        $date->setTime('00','00','00');
+        $date->setTime('00', '00', '00');
 
         $this->dateFrom = $date;
         $this->dateTo = new \DateTime();
-        $this->dateTo->setTime('23','59','59');
+        $this->dateTo->setTime('23', '59', '59');
 
         $this->initSortSelect();
     }
 
     public function setDateFrom(\DateTime $dateFrom)
     {
-        if($dateFrom != ""){
-            $dateFrom->setTime('00','00','00');
+        if ($dateFrom != "") {
+            $dateFrom->setTime('00', '00', '00');
             $this->dateFrom = $dateFrom;
         }
 
@@ -69,15 +69,16 @@ class ArticleSearch
 
     public function setDateTo(\DateTime $dateTo)
     {
-        if($dateTo != ""){
-            $dateTo->setTime('23','59','59');
+        if ($dateTo != "") {
+            $dateTo->setTime('23', '59', '59');
             $this->dateTo = $dateTo;
         }
 
         return $this;
     }
 
-    public function clearDates(){
+    public function clearDates()
+    {
         $this->dateTo = null;
         $this->dateFrom = null;
     }
@@ -138,9 +139,9 @@ class ArticleSearch
         return $this->perPage;
     }
 
-    public function setPerPage($perPage=null)
+    public function setPerPage($perPage = null)
     {
-        if($perPage !== null){
+        if ($perPage !== null) {
             $this->perPage = $perPage;
         }
 

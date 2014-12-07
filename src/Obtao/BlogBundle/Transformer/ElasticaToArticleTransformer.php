@@ -28,8 +28,8 @@ class ElasticaToArticleTransformer extends AbstractElasticaToModelTransformer
 
         $qb
             ->select('a,aut,c')
-            ->join('a.authors','aut')
-            ->join('a.category','c')
+            ->join('a.authors', 'aut')
+            ->join('a.category', 'c')
             ->where($qb->expr()->in('a.'.$this->options['identifier'], ':values'))
             ->setParameter('values', $identifierValues)
         ;
