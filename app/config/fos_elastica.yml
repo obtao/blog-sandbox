@@ -4,6 +4,36 @@ fos_elastica:
     indexes:
         obtao_blog:
             client: default
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            custom_analyzer :
+                                type     :    custom
+                                tokenizer:    nGram
+                                filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
+                            custom_search_analyzer :
+                                type     :    custom
+                                tokenizer:    standard
+                                filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
+                        tokenizer:
+                            nGram:
+                                type:     nGram
+                                min_gram: 2
+                                max_gram: 20
+                        filter:
+                            snowball:
+                                type:     snowball
+                                language: French
+                            elision:
+                                type:     elision
+                                articles: [l, m, t, qu, n, s, j, d]
+                            stopwords:
+                                type:      stop
+                                stopwords: [_french_]
+                                ignore_case : true
+                            worddelimiter :
+                                type:      word_delimiter
             types:
                 category:
                     mappings:
@@ -23,20 +53,29 @@ fos_elastica:
                         authors :
                             type : nested
                             properties :
-                                firstname : ~
-                                surname : ~
+                                firstname :
+                                    index_analyzer : custom_analyzer
+                                    search_analyzer : custom_search_analyzer
+                                surname :
+                                    index_analyzer : custom_analyzer
+                                    search_analyzer : custom_search_analyzer
                                 id: ~
                         category :
                             index : not_analyzed
                         createdAt :
                             type : date
-                        content : ~
+                        content :
+                            index_analyzer: custom_analyzer
+                            search_analyzer : custom_search_analyzer
                         publishedAt :
                             type : date
                         published :
                             type : boolean
                         tags : ~
-                        title : ~
+                        title:
+                            boost: 6
+                            index_analyzer : custom_analyzer
+                            search_analyzer : custom_search_analyzer
                     persistence:
                         driver: orm
                         model: Obtao\BlogBundle\Entity\Article
@@ -45,9 +84,6 @@ fos_elastica:
                         finder: ~
                         provider: ~
                         listener: ~
-                    _routing:
-                        required: true
-                        path: category
                     _parent:
                         type : "category"
                         identifier: "id"
